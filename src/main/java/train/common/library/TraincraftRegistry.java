@@ -3,7 +3,8 @@ package train.common.library;
 import java.util.ArrayList;
 import train.common.api.TrainRecord;
 
-import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.relauncher.Side;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,8 +28,11 @@ public class TraincraftRegistry {
             TraincraftRegistry.this.registerTrainRecord(train);
         }
 
-        for (RenderEnum render : RenderEnum.values()) {
-            TraincraftRegistry.this.registerTrainRenderRecord(render);
+        Side side = FMLCommonHandler.instance().getEffectiveSide();
+        if (side == Side.CLIENT) {
+            for (RenderEnum render : RenderEnum.values()) {
+                TraincraftRegistry.this.registerTrainRenderRecord(render);
+            }
         }
 
         for (TrainSoundRecord sound : EnumSounds.values()) {
