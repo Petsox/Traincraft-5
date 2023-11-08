@@ -49,6 +49,13 @@ minecraft {
     replace "@VERSION1@", config.modVersion.toString()
 }
 
+task devJar ( type: Zip, dependsOn: jar ) {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    extension = 'jar'
+
+    classifier = 'dev'
+}
+
 repositories {
 	maven {
 		name "gt"

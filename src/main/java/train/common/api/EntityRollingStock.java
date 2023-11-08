@@ -54,7 +54,6 @@ import train.common.items.ItemTCRail;
 import train.common.items.ItemTCRail.TrackTypes;
 import train.common.items.ItemWrench;
 import train.common.library.BlockIDs;
-import train.common.library.EnumTrains;
 import train.common.tile.TileTCRail;
 import train.common.tile.TileTCRailGag;
 
@@ -2485,12 +2484,11 @@ public class EntityRollingStock extends AbstractTrains implements ILinkableCart 
 	@Override
 	public List<ItemStack> getItemsDropped() {
 		List<ItemStack> items = new ArrayList<ItemStack>();
-		for (EnumTrains trains : EnumTrains.values()) {
-			if (trains.getEntityClass().equals(this.getClass())) {
-				items.add(ItemRollingStock.setPersistentData(new ItemStack(trains.getItem()), this,this.getUniqueTrainID(),trainCreator, trainOwner, getColor()));
-				return items;
-			}
-		}
+        TrainRecord train = Traincraft.instance.traincraftRegistry.getTrainRecord(this.getClass());
+        if (train != null) {
+            items.add(ItemRollingStock.setPersistentData(new ItemStack(train.getItem()), this,this.getUniqueTrainID(),trainCreator, trainOwner, getColor()));
+            return items;
+        }
 		return null;
 	}
 

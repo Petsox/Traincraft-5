@@ -15,11 +15,12 @@ import train.common.containers.ContainerTier;
 import train.common.core.interfaces.ITier;
 import train.common.core.managers.TierRecipe;
 import train.common.core.managers.TierRecipeManager;
-import train.common.library.EnumTrains;
 import train.common.library.Info;
 import train.common.library.ItemIDs;
 
 import java.util.List;
+import train.common.Traincraft;
+import train.common.api.TrainRecord;
 
 
 public class GuiCrafterTier extends GuiTraincraft {
@@ -110,7 +111,7 @@ public class GuiCrafterTier extends GuiTraincraft {
 				GL11.glTranslatef(guiLeft-70, this.guiTop+170, 100);
 
 				RenderHelper.enableGUIStandardItemLighting();
-				EnumTrains train = EnumTrains.getCurrentTrain(currentKnownItem);
+                TrainRecord train = Traincraft.instance.traincraftRegistry.findTrainRecordByItem(currentKnownItem);
 				renderEntity = train.getEntity(mc.theWorld);
 				if(renderEntity!=null && !Item.itemRegistry.getNameForObject(currentKnownItem).equals(Item.itemRegistry.getNameForObject(previousItem))){
 					previousItem = currentKnownItem;

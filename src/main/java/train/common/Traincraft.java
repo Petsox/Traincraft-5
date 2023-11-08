@@ -35,6 +35,7 @@ import train.common.generation.ComponentVillageTrainstation;
 import train.common.generation.WorldGenWorld;
 import train.common.items.TCItems;
 import train.common.library.Info;
+import train.common.library.TraincraftRegistry;
 import train.common.recipes.AssemblyTableRecipes;
 
 import java.io.File;
@@ -84,6 +85,7 @@ public class Traincraft {
 	public static final SimpleNetworkWrapper gsfsChannel = NetworkRegistry.INSTANCE.newSimpleChannel("gsfsChannel");
 	public static final SimpleNetworkWrapper gsfsrChannel = NetworkRegistry.INSTANCE.newSimpleChannel("gsfsReturnChannel");
 
+    public final TraincraftRegistry traincraftRegistry = new TraincraftRegistry();
 
 
 	public static File configDirectory;
@@ -100,7 +102,7 @@ public class Traincraft {
 
 	
 	public static WorldGenWorld worldGen;
-
+    
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 		TraincraftUtil.dev = (Boolean) Launch.blackboard.get("fml.deobfuscatedEnvironment");
@@ -152,7 +154,7 @@ public class Traincraft {
 		tcLog.info("Initialize Renderer and Events");
 		proxy.registerRenderInformation();
 		proxy.registerEvents(event);
-
+        traincraftRegistry.init();
 
 		tcLog.info("Finished PreInitialization");
 	}

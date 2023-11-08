@@ -7,6 +7,7 @@ import mods.railcraft.api.carts.IMinecart;
 import mods.railcraft.api.core.items.IMinecartItem;
 import net.minecraft.block.BlockRailBase;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
@@ -17,7 +18,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
-import sun.java2d.loops.DrawLine;
 import train.common.Traincraft;
 import train.common.api.*;
 import train.common.core.handlers.ConfigHandler;
@@ -25,8 +25,6 @@ import train.common.core.util.TraincraftUtil;
 import train.common.entity.rollingStock.EntityTracksBuilder;
 import train.common.items.ItemTCRail.TrackTypes;
 import train.common.library.BlockIDs;
-import train.common.library.EnumTrains;
-import train.common.library.Info;
 import train.common.tile.TileTCRail;
 import train.common.tile.TileTCRailGag;
 
@@ -52,6 +50,13 @@ public class ItemRollingStock extends ItemMinecart implements IMinecart, IMineca
 		}
 	}
 
+	public ItemRollingStock(String iconName, CreativeTabs tab) {
+		super(1);
+		this.iconName = iconName;
+		maxStackSize = 1;
+		trainName = this.getUnlocalizedName();
+        setCreativeTab(tab);
+	}
 
 
 	public int setNewUniqueID(ItemStack stack, EntityPlayer player, int numberOfTrains) {
@@ -122,50 +127,45 @@ public class ItemRollingStock extends ItemMinecart implements IMinecart, IMineca
 	}
 
 	public String getTrainType() {
-		for(EnumTrains trains : EnumTrains.values()){
-			if(trains.getItem() == this){
-				return trains.getTrainType();
-			}
-		}
+        TrainRecord train = Traincraft.instance.traincraftRegistry.findTrainRecordByItem(this);
+        if (train != null) {
+            return train.getTrainType();
+        }
 		return "";
 	}
 	public double getMass() {
-		for(EnumTrains trains : EnumTrains.values()){
-			if(trains.getItem() == this){
-				return trains.getMass();
-			}
+        TrainRecord train = Traincraft.instance.traincraftRegistry.findTrainRecordByItem(this);
+        if (train != null) {
+            return train.getMass();
 		}
 		return 0;
 	}
 	public int getMaxSpeed() {
-		for(EnumTrains trains : EnumTrains.values()){
-			if(trains.getItem() == this){
-				return trains.getMaxSpeed();
-			}
+        TrainRecord train = Traincraft.instance.traincraftRegistry.findTrainRecordByItem(this);
+        if (train != null) {
+            return train.getMaxSpeed();
 		}
 		return 0;
 	}
 	public int getMHP() {
-		for(EnumTrains trains : EnumTrains.values()){
-			if(trains.getItem() == this){
-				return trains.getMHP();
-			}
+        TrainRecord train = Traincraft.instance.traincraftRegistry.findTrainRecordByItem(this);
+        if (train != null) {
+            return train.getMHP();
 		}
 		return 0;
 	}
 	public String getAdditionnalInfo() {
-		for(EnumTrains trains : EnumTrains.values()){
-			if(trains.getItem() == this){
-				return trains.getAdditionnalTooltip();
-			}
+        TrainRecord train = Traincraft.instance.traincraftRegistry.findTrainRecordByItem(this);
+        if (train != null) {
+            return train.getAdditionnalTooltip();
 		}
 		return null;
 	}
-	public int getCargoCapacity() {
-		for(EnumTrains trains : EnumTrains.values()){
-			if(trains.getItem() == this){
-				return trains.getCargoCapacity();
-			}
+
+    public int getCargoCapacity() {
+        TrainRecord train = Traincraft.instance.traincraftRegistry.findTrainRecordByItem(this);
+        if (train != null) {
+            return train.getCargoCapacity();
 		}
 		return 0;
 	}
@@ -259,20 +259,17 @@ public class ItemRollingStock extends ItemMinecart implements IMinecart, IMineca
 
 	public EntityMinecart placeCart(EntityPlayer player, ItemStack itemstack, World world, int i, int j, int k) {
 		EntityRollingStock rollingStock = null;
-		for (EnumTrains train : EnumTrains.values()) {
-			if (train.getItem() == itemstack.getItem()) {
-				rollingStock = (EntityRollingStock) train.getEntity(world, i + 0.5F, j + 0.2F, k + 0.5F);
-				if (train.getColors() != null) {
-					if (rollingStock != null) {
-						//rollingStock.setColor(AbstractTrains.getColorFromString(train.getColors()[0]));
-						rollingStock.setColor((train.getColors()[0]));
-					}
-				}
-
-				break;
-			}
-		}
-		if (rollingStock != null) {
+        TrainRecord train = Traincraft.instance.traincraftRegistry.findTrainRecordByItem(itemstack.getItem());
+        if (train != null) {
+            rollingStock = (EntityRollingStock) train.getEntity(world, i + 0.5F, j + 0.2F, k + 0.5F);
+            if (train.getColors() != null) {
+                if (rollingStock != null) {
+                    //rollingStock.setColor(AbstractTrains.getColorFromString(train.getColors()[0]));
+                    rollingStock.setColor((train.getColors()[0]));
+                }
+            }
+        }
+        if (rollingStock != null) {
 			if (!world.isRemote) {
 
 				if ((rollingStock instanceof SteamTrain && !ConfigHandler.ENABLE_STEAM) || (rollingStock instanceof ElectricTrain && !ConfigHandler.ENABLE_ELECTRIC) || (rollingStock instanceof DieselTrain && !ConfigHandler.ENABLE_DIESEL) || (rollingStock instanceof EntityTracksBuilder && !ConfigHandler.ENABLE_BUILDER) || (rollingStock instanceof Tender && !ConfigHandler.ENABLE_TENDER)) {
@@ -689,12 +686,10 @@ public class ItemRollingStock extends ItemMinecart implements IMinecart, IMineca
 		ItemStack stack = oldStack;
 
 		if (train != null){
-			for (EnumTrains trains : EnumTrains.values()) {
-				if (trains.getEntityClass().equals(train.getClass())) {
-					stack = (new ItemStack(trains.getItem()));
-					break;
-				}
-			}
+            TrainRecord trainRecord = Traincraft.instance.traincraftRegistry.getTrainRecord(train.getClass());
+            if (trainRecord != null) {
+                stack = (new ItemStack(trainRecord.getItem()));
+            }
 		}
 		if(stack!=null) {
 			NBTTagCompound tag = stack.getTagCompound();
@@ -743,6 +738,6 @@ public class ItemRollingStock extends ItemMinecart implements IMinecart, IMineca
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IIconRegister iconRegister) {
-		this.itemIcon = iconRegister.registerIcon(Info.modID.toLowerCase() + ":trains/" + this.iconName);
+		this.itemIcon = iconRegister.registerIcon(this.iconName);
 	}
 }

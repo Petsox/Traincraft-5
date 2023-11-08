@@ -27,7 +27,7 @@ public class TCItems {
 					items.item = new ItemPart(items.iconName);
 				}
 				else if (items.className.equals("ItemRollingStock")) {
-					items.item = new ItemRollingStock(items.iconName);
+					items.item = new ItemRollingStock(Info.modID.toLowerCase() + ":trains/" + items.iconName);
 				}
 				else if (items.className.equals("ItemRotativeDigger")) {
 					items.item = new ItemRotativeDigger();

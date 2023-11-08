@@ -28,7 +28,6 @@ import train.common.core.handlers.TrainHandler;
 import train.common.items.ItemChunkLoaderActivator;
 import train.common.items.ItemRollingStock;
 import train.common.items.ItemWrench;
-import train.common.library.EnumTrains;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,7 +60,7 @@ public abstract class AbstractTrains extends EntityMinecart implements IMinecart
 	/**
 	 * A reference to EnumTrains containing all spec for this specific train
 	 */
-	protected EnumTrains trainSpec;
+	protected TrainRecord trainSpec;
 
 	/**
 	 * The name of the train based on the item name
@@ -172,21 +171,18 @@ public abstract class AbstractTrains extends EntityMinecart implements IMinecart
 				break;
 			}
 		}*/
-		for (EnumTrains trains : EnumTrains.values()) {
-			if (trains.getEntityClass().equals(this.getClass())) {
-				this.setDefaultMass(trains.getMass());
-				trainSpec = trains;
-				if (trains.getColors() != null) {
-					for (int i = 0; i < trains.getColors().length; i++) {
-						this.acceptedColors.add((trains.getColors()[i]));
-					}
-				}
-				this.setSize(0.98f, 1.98f);
-				this.setMinecartName(trainSpec.name());
-
-				break;
-			}
-		}
+        TrainRecord trainRecord = Traincraft.instance.traincraftRegistry.getTrainRecord(this.getClass());
+        if (trainRecord != null) {
+            this.setDefaultMass(trainRecord.getMass());
+            trainSpec = trainRecord;
+            if (trainRecord.getColors() != null) {
+                for (int i = 0; i < trainRecord.getColors().length; i++) {
+                    this.acceptedColors.add((trainRecord.getColors()[i]));
+                }
+            }
+            this.setSize(0.98f, 1.98f);
+            this.setMinecartName(trainSpec.getName());
+        }
 	}
 
 	public AbstractTrains(World world, double x, double y, double z){
@@ -362,9 +358,10 @@ public abstract class AbstractTrains extends EntityMinecart implements IMinecart
 		this.getEntityData().setInteger("color", color);
 	}*/
 	public void setColor(int color) {
-		if (EnumTrains.getCurrentTrain(getCartItem().getItem()).getColors()!=null){
-			if (color==-1 || !ArrayUtils.contains(EnumTrains.getCurrentTrain(getCartItem().getItem()).getColors(),(byte)color)) {
-				color = (EnumTrains.getCurrentTrain(getCartItem().getItem()).getColors()[0]);
+        TrainRecord trainRecord = Traincraft.instance.traincraftRegistry.findTrainRecordByItem(getCartItem().getItem());
+		if (trainRecord != null && trainRecord.getColors() != null){
+			if (color==-1 || !ArrayUtils.contains(trainRecord.getColors(),(byte)color)) {
+				color = (trainRecord.getColors()[0]);
 			}
 		}
 		dataWatcher.updateObject(12, color);
