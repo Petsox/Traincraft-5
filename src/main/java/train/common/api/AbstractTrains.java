@@ -171,18 +171,18 @@ public abstract class AbstractTrains extends EntityMinecart implements IMinecart
 				break;
 			}
 		}*/
-        TrainRecord trainRecord = Traincraft.instance.traincraftRegistry.getTrainRecord(this.getClass());
-        if (trainRecord != null) {
-            this.setDefaultMass(trainRecord.getMass());
-            trainSpec = trainRecord;
-            if (trainRecord.getColors() != null) {
-                for (int i = 0; i < trainRecord.getColors().length; i++) {
-                    this.acceptedColors.add((trainRecord.getColors()[i]));
-                }
-            }
-            this.setSize(0.98f, 1.98f);
-            this.setMinecartName(trainSpec.getName());
-        }
+		TrainRecord trainRecord = Traincraft.instance.traincraftRegistry.getTrainRecord(this.getClass());
+		if (trainRecord != null) {
+			this.setDefaultMass(trainRecord.getMass());
+			trainSpec = trainRecord;
+			if (trainRecord.getColors() != null) {
+				for (int i = 0; i < trainRecord.getColors().length; i++) {
+					this.acceptedColors.add((trainRecord.getColors()[i]));
+				}
+			}
+			this.setSize(0.98f, 1.98f);
+			this.setMinecartName(trainSpec.getName());
+		}
 	}
 
 	public AbstractTrains(World world, double x, double y, double z){
@@ -358,7 +358,7 @@ public abstract class AbstractTrains extends EntityMinecart implements IMinecart
 		this.getEntityData().setInteger("color", color);
 	}*/
 	public void setColor(int color) {
-        TrainRecord trainRecord = Traincraft.instance.traincraftRegistry.findTrainRecordByItem(getCartItem().getItem());
+		TrainRecord trainRecord = Traincraft.instance.traincraftRegistry.findTrainRecordByItem(getCartItem().getItem());
 		if (trainRecord != null && trainRecord.getColors() != null){
 			if (color==-1 || !ArrayUtils.contains(trainRecord.getColors(),(byte)color)) {
 				color = (trainRecord.getColors()[0]);

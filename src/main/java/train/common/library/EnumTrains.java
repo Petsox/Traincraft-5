@@ -720,103 +720,103 @@ public enum EnumTrains implements TrainRecord {
 		this.cargoCapacity = cargoCapacity;
 	}
 
-    @Override
+	@Override
 	public String getName(){
 		return this.name();
 	}
 	
-    @Override
+	@Override
 	public String getInternalName(){
 		return this.internalName;
 	}
 	
-    @Override
+	@Override
 	public Item getItem(){
 		return this.item;
 	}
 
-    @Override
+	@Override
 	public String getTrainType(){
 		return this.trainType;
 	}
 	
-    @Override
+	@Override
 	public int getMHP(){
 		return this.MHP;
 	}
 	
-    @Override
+	@Override
 	public int getMaxSpeed(){
 		return this.maxSpeed;
 	}
 	
-    @Override
+	@Override
 	public double getMass(){
 		return this.mass;
 	}
 	
-    @Override
+	@Override
 	public int getFuelConsumption(){
 		return this.fuelConsumption;
 	}
 	
-    @Override
+	@Override
 	public int getWaterConsumption(){
 		return this.waterConsumption;
 	}
 	
-    @Override
+	@Override
 	public int getHeatingTime(){
 		return this.heatingTime;
 	}
 	
-    @Override
+	@Override
 	public double getAccelerationRate(){
 		return this.accelerationRate;
 	}
 	
-    @Override
+	@Override
 	public double getBrakeRate(){
 		return this.brakeRate;
 	}
 	
-    @Override
+	@Override
 	public int getTankCapacity(){
 		return this.tankCapacity;
 	}
 	
-    @Override
+	@Override
 	public int[] getColors(){
 		return this.colors;
 	}
 	
-    @Override
+	@Override
 	public double getBogieLocoPosition(){
 		return this.bogieLocoPosition;
 	}
 
 	
-    @Override
+	@Override
 	public Class getEntityClass() {
 		return this.entityClass;
 	}
 	
-    @Override
+	@Override
 	public int getGuiRenderScale(){
 		return this.guiRenderScale;
 	}
 	
-    @Override
+	@Override
 	public String getAdditionnalTooltip(){
 		return this.additionnalTooltip;
 	}
 	
-    @Override
+	@Override
 	public int getCargoCapacity(){
 		return cargoCapacity;
 	}
 
-    @Override
+	@Override
 	public AbstractTrains getEntity(World world){
 		try {
 			return (AbstractTrains) entityClass.getConstructor(World.class).newInstance(world);
@@ -836,7 +836,7 @@ public enum EnumTrains implements TrainRecord {
 		return null;
 	}
 	
-    @Override
+	@Override
 	public AbstractTrains getEntity(World world, double x, double y, double z){
 		try {
 			if(world.isRemote){

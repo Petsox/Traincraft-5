@@ -111,7 +111,7 @@ public class GuiCrafterTier extends GuiTraincraft {
 				GL11.glTranslatef(guiLeft-70, this.guiTop+170, 100);
 
 				RenderHelper.enableGUIStandardItemLighting();
-                TrainRecord train = Traincraft.instance.traincraftRegistry.findTrainRecordByItem(currentKnownItem);
+				TrainRecord train = Traincraft.instance.traincraftRegistry.findTrainRecordByItem(currentKnownItem);
 				renderEntity = train.getEntity(mc.theWorld);
 				if(renderEntity!=null && !Item.itemRegistry.getNameForObject(currentKnownItem).equals(Item.itemRegistry.getNameForObject(previousItem))){
 					previousItem = currentKnownItem;

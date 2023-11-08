@@ -310,55 +310,55 @@ public enum EnumSounds implements TrainSoundRecord {
 		this.soundChangeWithSpeed = soundChangeWithSpeed;
 	}
 
-    @Override
+	@Override
 	public Class getEntityClass() {
 		return entityClass;
 	}
 
-    @Override
+	@Override
 	public String getHornString() {
         if (horn == null || horn.isEmpty()) return horn;
 		return Info.resourceLocation + ":" + horn;
 	}
 
-    @Override
+	@Override
 	public String getRunString() {
         if (run == null || run.isEmpty()) return run;
 		return Info.resourceLocation + ":" + run;
 	}
 
-    @Override
+	@Override
 	public String getIdleString() {
         if (idle == null || idle.isEmpty()) return idle;
 		return Info.resourceLocation + ":" + idle;
 	}
 
-    @Override
+	@Override
 	public Float getHornVolume() {
 		return hornVolume;
 	}
 
-    @Override
+	@Override
 	public Float getRunVolume() {
 		return runVolume;
 	}
 
-    @Override
+	@Override
 	public Float getIdleVolume() {
 		return idleVolume;
 	}
 
-    @Override
+	@Override
 	public int getRunSoundLenght() {
 		return runSoundLenght;
 	}
 
-    @Override
+	@Override
 	public int getIdleSoundLenght() {
 		return idleSoundLenght;
 	}
 
-    @Override
+	@Override
 	public boolean getSoundChangeWithSpeed() {
 		return soundChangeWithSpeed;
 	}

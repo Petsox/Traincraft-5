@@ -43,7 +43,7 @@ public interface TrainRecord {
 
     int getCargoCapacity();
 
-	AbstractTrains getEntity(World world);
-	
-	AbstractTrains getEntity(World world, double x, double y, double z);
+    AbstractTrains getEntity(World world);
+
+    AbstractTrains getEntity(World world, double x, double y, double z);
 }

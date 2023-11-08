@@ -1429,12 +1429,12 @@ public enum RenderEnum implements TrainRenderRecord {
 		this.hasSmokeOnSlopes = hasSmokeOnSlopes;
 	}
 
-    @Override
+	@Override
 	public Class<? extends AbstractTrains> getEntityClass() {
 		return entityClass;
 	}
 
-    @Override
+	@Override
 	public ModelBase getModel() {
 		return model;
 	}
@@ -1443,58 +1443,58 @@ public enum RenderEnum implements TrainRenderRecord {
 		return multiTexture;
 	}
 
-    @Override
+	@Override
 	public boolean hasSmoke() {
 		return smokeType.length() > 0;
 	}
 
-    @Override
+	@Override
 	public boolean hasSmokeOnSlopes() {
 		return hasSmokeOnSlopes;
 	}
 
-    @Override
+	@Override
 	public String getSmokeType() {
 		return smokeType;
 	}
 
-    @Override
+	@Override
 	public ArrayList<double[]> getSmokeFX() {
 		return smokeFX;
 	}
 
-    @Override
+	@Override
 	public String getExplosionType() {
 		return explosionType;
 	}
 
-    @Override
+	@Override
 	public boolean hasExplosion() {
 		return explosionType.length() > 0;
 	}
 
-    @Override
+	@Override
 	public ArrayList<double[]> getExplosionFX() {
 		return explosionFX;
 	}
 
-    @Override
+	@Override
 	public float[] getTrans() {
 		return trans;
 	}
 
-    @Override
+	@Override
 	public float[] getRotate() {
 		return rotate;
 	}
 
-    @Override
+	@Override
 	public float[] getScale() {
 		return scale;
 	}
 
-    @Override
-    public ResourceLocation getTextureFile(String colorString) {
+	@Override
+	public ResourceLocation getTextureFile(String colorString) {
 		if (multiTexture) {
 			return new ResourceLocation(Info.resourceLocation, Info.trainsPrefix + texture + colorString + ".png");
 		} else {
@@ -1502,12 +1502,12 @@ public enum RenderEnum implements TrainRenderRecord {
 		}
 	}
 
-    @Override
+	@Override
 	public int getSmokeIterations() {
 		return smokeIterations;
 	}
 
-    @Override
+	@Override
 	public int getExplosionFXIterations() {
 		return explosionFXIterations;
 	}

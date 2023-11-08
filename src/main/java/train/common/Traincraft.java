@@ -85,7 +85,7 @@ public class Traincraft {
 	public static final SimpleNetworkWrapper gsfsChannel = NetworkRegistry.INSTANCE.newSimpleChannel("gsfsChannel");
 	public static final SimpleNetworkWrapper gsfsrChannel = NetworkRegistry.INSTANCE.newSimpleChannel("gsfsReturnChannel");
 
-    public final TraincraftRegistry traincraftRegistry = new TraincraftRegistry();
+	public final TraincraftRegistry traincraftRegistry = new TraincraftRegistry();
 
 
 	public static File configDirectory;
@@ -102,7 +102,7 @@ public class Traincraft {
 
 	
 	public static WorldGenWorld worldGen;
-    
+
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 		TraincraftUtil.dev = (Boolean) Launch.blackboard.get("fml.deobfuscatedEnvironment");
@@ -154,7 +154,7 @@ public class Traincraft {
 		tcLog.info("Initialize Renderer and Events");
 		proxy.registerRenderInformation();
 		proxy.registerEvents(event);
-        traincraftRegistry.init();
+		traincraftRegistry.init();
 
 		tcLog.info("Finished PreInitialization");
 	}
